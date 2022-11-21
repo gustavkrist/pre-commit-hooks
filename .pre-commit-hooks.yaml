@@ -1,0 +1,5 @@
+-   id: check-print
+    name: check for print statements
+    description: prevents leaving in print statements
+    entry: check-print
+    language: python
