@@ -3,3 +3,4 @@
     description: prevents leaving in print statements
     entry: check-print
     language: python
+    types: ["python"]
