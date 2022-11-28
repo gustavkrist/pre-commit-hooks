@@ -15,7 +15,11 @@ class NV(ast.NodeVisitor):
             if node.value.func.id == "print":
                 print(f"{self.filename}:{node.lineno}: Print statement")
                 self.success = False
-        elif isinstance(node.value, ast.Call) and isinstance(node.value.func, ast.Attribute):
+        elif (
+            isinstance(node.value, ast.Call)
+            and isinstance(node.value.func, ast.Attribute)
+            and isinstance(node.value.func.value, ast.Name)
+        ):
             if node.value.func.value.id == "logger" and node.value.func.attr in [
                 "info",
                 "debug",
