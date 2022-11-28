@@ -16,7 +16,7 @@ class NV(ast.NodeVisitor):
             and isinstance(node.value.func, ast.Name)
             and node.value.func.id == "print"
         ):
-            print(f"+{node.lineno} {self.filename}")
+            print(f"{self.filename}:{node.lineno}")
             self.success = False
 
 
