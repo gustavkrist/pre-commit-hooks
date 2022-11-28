@@ -11,13 +11,17 @@ class NV(ast.NodeVisitor):
         self.success = True
 
     def visit_Expr(self, node: ast.Expr) -> None:
-        if (
-            isinstance(node.value, ast.Call)
-            and isinstance(node.value.func, ast.Name)
-            and node.value.func.id == "print"
-        ):
-            print(f"{self.filename}:{node.lineno}: Print statement")
-            self.success = False
+        if isinstance(node.value, ast.Call) and isinstance(node.value.func, ast.Name):
+            if node.value.func.id == "print":
+                print(f"{self.filename}:{node.lineno}: Print statement")
+                self.success = False
+        elif isinstance(node.value, ast.Call) and isinstance(node.value.func, ast.Attribute):
+            if node.value.func.value.id == "logger" and node.value.func.attr in [
+                "info",
+                "debug",
+            ]:
+                print(f"{self.filename}:{node.lineno}: Logger statement")
+                self.success = False
 
 
 def main(argv: Sequence[str] | None = None) -> int:
